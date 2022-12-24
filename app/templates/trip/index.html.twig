@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FahrtenÜbersicht{% endblock %}
+{% block style %}
+    {{ parent() }}
+    .table {
+        margin: 10px;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+{% endblock %}
+{% block body %}
+    <h1>FahrtenÜbersicht</h1>
+   <p><a href="{{ path('app_trip_new') }}">Neue Fahrt anlegen</a></p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Startort</th>
+                <th>Zielort</th>
+                <th>Startzeitpunkt</th>
+                <th>Endzeitpunkt</th>
+                <th>Gefahrene Kilometer</th>
+                <th>Fahrzeug</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for trip in trips %}
+            <tr>
+                <td>{{ trip.id }}</td>
+                <td>{{ trip.startLocation }}</td>
+                <td>{{ trip.endLocation }}</td>
+                <td>{{ trip.startDateTime ? trip.startDateTime|date('d.m.Y H:i') : '' }}</td>
+                <td>{{ trip.endDateTime ? trip.endDateTime|date('d.m.Y H:i') : '' }}</td>
+                <td>{{ trip.drivenkilometers }}</td>
+                <td><a href="{{ path('app_car_update', {'id': trip.car.id}) }}">{{ trip.car.description }} ({{ trip.car.plate }})</a></td>
+                <td>
+                    <a href="{{ path('app_trip_show', {'id': trip.id}) }}">Deteiansicht</a> | 
+                    <a href="{{ path('app_trip_edit', {'id': trip.id}) }}">Fahrt editieren</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Keine Fahrten gefunden</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

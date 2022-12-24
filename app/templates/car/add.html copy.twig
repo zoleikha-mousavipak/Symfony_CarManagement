@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Auto hinzufügen{% endblock %}
+
+{% block body %}
+<h2>Auto hinzufügen</h2>
+
+    <form method="post" action=" {{ path('app_car_add') }} ">
+        <p>
+            <label for="description">Bezeichnung</label>
+            <input id="description" name="description" />
+        </p>
+        <p>
+            <label for="plate">Kennzeichen</label>
+            <input id="plate" name="plate" />
+        </p>
+        <p>
+            <input type="submit" value="Speichern" />
+        </p>
+    </form>
+
+{% endblock %}
